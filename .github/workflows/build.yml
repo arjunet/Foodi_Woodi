@@ -96,6 +96,9 @@ jobs:
             unzip \
             autoconf \
             libtool \
+            automake \
+            libltdl-dev \
+            m4
             pkg-config \
             libncurses5-dev \
             libncursesw5-dev \
