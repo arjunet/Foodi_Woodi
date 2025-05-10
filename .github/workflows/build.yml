@@ -74,7 +74,8 @@ jobs:
             libavformat-dev \
             libavcodec-dev \
             libunwind-dev \
-            zlib1g-dev
+            zlib1g-dev \
+            autoconf-archive
           sudo apt-get install -y \
             libsqlite3-dev \
             sqlite3 \
