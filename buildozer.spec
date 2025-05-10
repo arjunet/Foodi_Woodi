@@ -13,7 +13,7 @@ package.domain = com.arjune
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,txt # Any other exts you have
+source.include_exts = py,png,txt
 
 # (list) List of inclusions using pattern matching
 source.include_patterns = images/*.png
@@ -44,7 +44,7 @@ requirements = python3,kivy==2.3.0,kivymd==1.1.1,pillow==10.3.0,pyrebase4
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/images/icon.png # Upload your own images, so you can customize
+presplash.filename = %(source.dir)s/images/icon.png 
 
 # (str) Icon of the application
 icon.filename = %(source.dir)s/images/icon.png
