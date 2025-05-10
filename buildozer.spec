@@ -1,5 +1,8 @@
 [app]
 
+prebuild_python_packages = urllib3==1.26.15
+
+
 # (str) Title of your application
 title = Foodi Woodi
 
