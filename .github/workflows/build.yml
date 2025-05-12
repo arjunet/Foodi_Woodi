@@ -1,7 +1,6 @@
 # Sample repository at https://github.com/Novfensec/SAMPLE-KIVYMD-APP
-# Tic Tac Toe Game at https://github.com/Novfensec/Tic-Tac-Toe-Android
 
-name: Android Build
+name: CI
 
 on:
   push:
@@ -13,49 +12,28 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       # Used to cache dependencies with a timeout
       - name: Get Date
         id: get-date
         run: |
-          echo "date=$(date -u '+%Y%m%d')" >> $GITHUB_ENV
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
         shell: bash
 
       - name: Cache Buildozer global directory
-        uses: actions/cache@v4
+        uses: actions/cache@v2
         with:
-          path: ~/.buildozer
-          key: buildozer-global-${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
-          restore-keys: |
-            buildozer-global-${{ runner.os }}-
+          path: .buildozer_global
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }}
 
-      - name: Cache Buildozer directory in app
-        uses: actions/cache@v4
+      - uses: actions/cache@v2
         with:
           path: .buildozer
-          key: ${{ runner.os }}-buildozer-${{ github.run_id }}-${{ hashFiles('buildozer.spec') }}
-          restore-keys: |
-            ${{ runner.os }}-buildozer-
-
-      - name: Cache Android SDK
-        uses: actions/cache@v4
-        with:
-          path: ~/.buildozer/android/platform/android-sdk
-          key: ${{ runner.os }}-android-sdk-${{ steps.get-date.outputs.date }}
-          restore-keys: |
-            ${{ runner.os }}-android-sdk-
-
-      - name: Cache Android NDK
-        uses: actions/cache@v4
-        with:
-          path: ~/.buildozer/android/platform/android-ndk-r25b
-          key: ${{ runner.os }}-android-ndk-${{ steps.get-date.outputs.date }}
-          restore-keys: |
-            ${{ runner.os }}-android-ndk-
+          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
 
       # Install dependencies
       - name: Install dependencies
@@ -74,8 +52,7 @@ jobs:
             libavformat-dev \
             libavcodec-dev \
             libunwind-dev \
-            zlib1g-dev \
-            autoconf-archive
+            zlib1g-dev
           sudo apt-get install -y \
             libsqlite3-dev \
             sqlite3 \
@@ -96,13 +73,10 @@ jobs:
             unzip \
             autoconf \
             libtool \
-            automake \
-            libltdl-dev \
-            m4 \
             pkg-config \
             libncurses5-dev \
             libncursesw5-dev \
-            libtinfo6 \
+            libtinfo5 \
             cmake \
             libffi-dev \
             libssl-dev \
@@ -110,22 +84,22 @@ jobs:
 
       # Set up Java 17 required by Gradle
       - name: Setup Java 17 required by Gradle
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'  # or 'zulu', 'liberica', etc.
           java-version: '17'
 
       # Set up Python
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.10' #set your python version
+          python-version: '3.8' #set your python version
 
       # Install pip dependencies
       - name: Install pip dependencies
         run: |
           pip install --upgrade pip
-          pip install buildozer cython==0.29.33 git+https://github.com/kivy/plyer.git
+          pip install buildozer cython==0.29.33
 
       # Build with Buildozer
       - name: Build with Buildozer
@@ -140,7 +114,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: package
-          path: |
-            bin/*.apk
-            bin/*.aab
-          retention-days: 3
+          path: bin/*.apk
