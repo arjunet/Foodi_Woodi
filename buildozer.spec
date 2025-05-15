@@ -1,25 +1,22 @@
 [app]
 
-prebuild_python_packages = urllib3==1.26.15
-
-
 # (str) Title of your application
-title = Foodi Woodi
+title = FoodieWoodie
 
 # (str) Package name
-package.name = arjunits
+package.name = foodiewoodie
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = com.arjune
+package.domain = org.novfensec.foodiewoodie
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,txt
+source.include_exts = py,png,jpg,kv,atlas
 
 # (list) List of inclusions using pattern matching
-source.include_patterns = images/*.png
+source.include_patterns = assets/*,assets/images/*.png
 
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec
@@ -40,18 +37,17 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, certifi==2025.4.26, cffi==1.17.1, charset-normalizer==3.4.2, cryptography==44.0.3, docutils==0.21.2, filetype==1.2.0, gcloud==0.18.3, googleapis-common-protos==1.70.0, httplib2==0.22.0, idna==3.10, jwcrypto==1.5.6, Kivy==2.3.1, Kivy-Garden==0.1.5, oauth2client==4.1.3, protobuf==6.31.0rc2, pyasn1==0.6.1, pyasn1_modules==0.4.2, pycparser==2.22, pycryptodome==3.22.0, Pygments==2.19.1, pyparsing==3.2.3, Pyrebase4==4.8.0, python-jwt==4.1.0, requests==2.32.3, requests-toolbelt==0.10.1, rsa==4.9.1, six==1.17.0, typing_extensions==4.13.2, urllib3==1.26.20
-
+requirements = python3, kivy==2.3.0, https://github.com/kivymd/KivyMD/archive/master.zip, pillow, materialyoucolor, exceptiongroup, asyncgui, asynckivy
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/images/icon.png 
+#presplash.filename = %(source.dir)s/data/presplash.png
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/images/icon.png
+#icon.filename = %(source.dir)s/data/icon.png
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
@@ -71,14 +67,14 @@ orientation = portrait
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 1.9.1
+osx.kivy_version = 2.3.0
 
 #
 # Android specific
 #
 
 # (bool) Indicate if the application should be fullscreen or not
-fullscreen = 1
+fullscreen = 0
 
 # (string) Presplash background color (for android toolchain)
 # Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
@@ -99,7 +95,7 @@ fullscreen = 1
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-android.permissions = INTERNET, WRITE_INTERNAL_STORAGE, WAKE_LOCK, READ_INTERNAL_STORAGE
+#android.permissions = android.permission.INTERNET, (name=android.permission.WRITE_EXTERNAL_STORAGE;maxSdkVersion=18)
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
@@ -108,13 +104,13 @@ android.permissions = INTERNET, WRITE_INTERNAL_STORAGE, WAKE_LOCK, READ_INTERNAL
 android.api = 35
 
 # (int) Minimum API your APK / AAB will support.
-#android.minapi = 21
+android.minapi = 21
 
 # (int) Android SDK version to use
 #android.sdk = 20
 
 # (str) Android NDK version to use
-android.ndk = 25
+#android.ndk = 25b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
@@ -140,7 +136,7 @@ android.ndk = 25
 # agreements. This is intended for automation only. If set to False,
 # the default, you will be shown the license when first running
 # buildozer.
-# android.accept_sdk_license = False
+android.accept_sdk_license = True
 
 # (str) Android entry point, default is ok for Kivy-based app
 #android.entrypoint = org.kivy.android.PythonActivity
@@ -287,7 +283,7 @@ android.ndk = 25
 
 # (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 # In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
-android.archs = armeabi-v7a, arm64-v8a
+android.archs = arm64-v8a, armeabi-v7a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
@@ -309,7 +305,7 @@ android.allow_backup = True
 # android.no-byte-compile-python = False
 
 # (str) The format used to package the app for release mode (aab or apk or aar).
-android.release_artifact = aab
+# android.release_artifact = aab
 
 # (str) The format used to package the app for debug mode (apk or aar).
 # android.debug_artifact = apk
@@ -319,13 +315,13 @@ android.release_artifact = aab
 #
 
 # (str) python-for-android URL to use for checkout
-p4a.url = https://github.com/Novfensec/python-for-android
+#p4a.url =
 
 # (str) python-for-android fork to use in case if p4a.url is not specified, defaults to upstream (kivy)
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-p4a.branch = develop
+#p4a.branch = master
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD
@@ -334,7 +330,7 @@ p4a.branch = develop
 #p4a.source_dir =
 
 # (str) The directory in which python-for-android should look for your own build recipes (if any)
-#p4a.local_recipes = python3
+#p4a.local_recipes =
 
 # (str) Filename to the hook for p4a
 #p4a.hook =
@@ -364,15 +360,17 @@ p4a.branch = develop
 # (str) Path to a custom kivy-ios folder
 #ios.kivy_ios_dir = ../kivy-ios
 # Alternately, specify the URL and branch of a git checkout:
-ios.kivy_ios_url = https://github.com/kivy/kivy-ios
-ios.kivy_ios_branch = master
+ios.kivy_ios_url = https://github.com/kivy/kivy-ios 
+# ios.kivy_ios_url = https://github.com/Novfensec/kivy-ios
+ios.kivy_ios_branch = master 
+# ios.kivy_ios_branch = patch-2
 
 # Another platform dependency: ios-deploy
 # Uncomment to use a custom checkout
 #ios.ios_deploy_dir = ../ios_deploy
 # Or specify URL and branch
-ios.ios_deploy_url = https://github.com/phonegap/ios-deploy
-ios.ios_deploy_branch = 1.10.0
+ios.ios_deploy_url = https://github.com/ios-control/ios-deploy
+ios.ios_deploy_branch = master
 
 # (bool) Whether or not to sign the code
 ios.codesign.allowed = false
