@@ -1,0 +1,34 @@
+<WelcomeScreenView>:
+    FloatLayout:
+        size_hint: 1, 1
+        padding: dp(16)
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            adaptive_height: True
+            spacing: dp(128)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            FitImage:
+                source: "assets/images/icon.png"
+                size_hint: None, None
+                size: dp(128), dp(128)
+                radius: dp(16)
+                pos_hint: {'center_x': 0.5}
+            
+            MDLabel:
+                text: "Foodie Woodie"
+                font_style: "Display"
+                role: "small"
+                color: app.theme_cls.primaryColor
+                halign: "center"
+
+            MDButton:
+                style: "tonal"
+                pos_hint: {'center_x': 0.5}
+                
+                MDButtonText:
+                    text: "Log In"
+                
+                MDButtonIcon:
+                    icon: "arrow-right"

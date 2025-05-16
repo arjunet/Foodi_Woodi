@@ -9,8 +9,14 @@ from Model.cuisines_screen import CuisinesScreenModel
 from Controller.cuisines_screen import CuisinesScreenController
 from Model.authentication_screen import AuthenticationScreenModel
 from Controller.authentication_screen import AuthenticationScreenController
+from Model.welcome_screen import WelcomeScreenModel
+from Controller.welcome_screen import WelcomeScreenController
 
 screens = {
+    'welcome screen': {
+        'model': WelcomeScreenModel,
+        'controller': WelcomeScreenController,
+    },
     'authentication screen': {
         'model': AuthenticationScreenModel,
         'controller': AuthenticationScreenController,
