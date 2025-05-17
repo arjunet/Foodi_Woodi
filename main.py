@@ -26,6 +26,14 @@ from functools import partial # Import partial for button callbacks
 
 # ----------------------------------------------------------------------------------------------------------------------
 
+def set_softinput(*args) -> None:
+    Window.keyboard_anim_args = {"d": 0.2, "t": "in_out_expo"}
+    Window.softinput_mode = "below_target"
+
+
+Window.on_restore(Clock.schedule_once(set_softinput, 0.1))
+
+
 # Firebase Configuration
 
 config = {
