@@ -1,0 +1,50 @@
+<Settings>:
+    bg_color: app.background
+    size_hint: 1, 1
+
+    StackLayout:
+        size_hint: 1, 1
+        padding: dp(16)
+        spacing: dp(32)
+
+        CBoxLayout:
+            orientation: 'horizontal'
+            adaptive: [False, True]
+            spacing: dp(16)
+            height: self.minimum_height
+
+            CButtonGhost:
+                icon: "arrow--left"
+                spacing: 0
+                on_press:
+                    root.manager.current = "app"
+
+            CLabel:
+                text: "General Settings"
+                style: "heading_04"
+
+        CBoxLayout:
+            orientation: "vertical"
+            adaptive:[False, True]
+            spacing: dp(16)
+
+            CButtonPrimary:
+                text: "Delete Recipe"
+                icon: "delete"
+                role: "Large Productive"
+                size_hint_x: 0.7
+                pos_hint: {'center_x': 0.5}
+                on_press:
+                    root.manager.current = "deleterecipe"
+            
+            CButtonTertiary:
+                text: "Forgot Password"
+                icon: "help"
+                role: "Large Productive"
+                size_hint_x: 0.7
+                pos_hint: {'center_x': 0.5}
+                on_press:
+                    root.manager.current = "forgot"
+
+
+        
