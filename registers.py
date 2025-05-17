@@ -81,35 +81,37 @@ font_register = LabelBase.register
 # Get the absolute path to the "assets/fonts" directory
 font_dir = os.path.join(os.getcwd(), "assets", "fonts")
 
-
-def get_font_path(directory: str, font_name: str, style: str) -> Optional[str]:
-    """
-    Helper function to construct and check the path for a specific font style.
-
-    Args:
-        directory (str): The path to the font's directory.
-        font_name (str): The base name of the font.
-        style (str): The style of the font (e.g., regular, italic, bold, bolditalic).
-
-    Returns:
-        Optional[str]: The path to the font file if it exists, otherwise None.
-    """
-    font_path = os.path.join(directory, f"{font_name.lower()}-{style}.ttf")
-    return font_path if os.path.isfile(font_path) else None
+font_register("nasalization", os.path.join(font_dir, "Nasalization.otf"))
 
 
-# Iterate over the fonts in the directory
-for font_name in os.listdir(font_dir):
-    target_dir = os.path.join(font_dir, font_name)
+# def get_font_path(directory: str, font_name: str, style: str) -> Optional[str]:
+#     """
+#     Helper function to construct and check the path for a specific font style.
 
-    # Check if it's a directory (excluding '__pycache__')
-    if os.path.isdir(target_dir) and font_name != "__pycache__":
+#     Args:
+#         directory (str): The path to the font's directory.
+#         font_name (str): The base name of the font.
+#         style (str): The style of the font (e.g., regular, italic, bold, bolditalic).
 
-        # Fetch paths for different font styles if available
-        regular_font = get_font_path(target_dir, font_name, "regular")
-        italic_font = get_font_path(target_dir, font_name, "italic")
-        bold_font = get_font_path(target_dir, font_name, "bold")
-        bolditalic_font = get_font_path(target_dir, font_name, "bolditalic")
+#     Returns:
+#         Optional[str]: The path to the font file if it exists, otherwise None.
+#     """
+#     font_path = os.path.join(directory, f"{font_name.lower()}-{style}.ttf")
+#     return font_path if os.path.isfile(font_path) else None
 
-        # Register the font with the LabelBase
-        font_register(font_name, regular_font, italic_font, bold_font, bolditalic_font)
+
+# # Iterate over the fonts in the directory
+# for font_name in os.listdir(font_dir):
+#     target_dir = os.path.join(font_dir, font_name)
+
+#     # Check if it's a directory (excluding '__pycache__')
+#     if os.path.isdir(target_dir) and font_name != "__pycache__":
+
+#         # Fetch paths for different font styles if available
+#         regular_font = get_font_path(target_dir, font_name, "regular")
+#         italic_font = get_font_path(target_dir, font_name, "italic")
+#         bold_font = get_font_path(target_dir, font_name, "bold")
+#         bolditalic_font = get_font_path(target_dir, font_name, "bolditalic")
+
+#         # Register the font with the LabelBase
+#         font_register(font_name, regular_font, italic_font, bold_font, bolditalic_font)

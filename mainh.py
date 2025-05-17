@@ -10,6 +10,7 @@ set DEBUG=1 && python main.py
 
 import importlib
 import os
+import registers
 
 
 from kivy import Config
