@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -60,7 +60,7 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: |
-          sudo apt update
+          sudo apt-get update
           sudo apt-get install -y \
             build-essential \
             git \
@@ -98,7 +98,7 @@ jobs:
             pkg-config \
             libncurses5-dev \
             libncursesw5-dev \
-            libtinfo6 \
+            libtinfo5 \
             cmake \
             libffi-dev \
             libssl-dev \
@@ -121,7 +121,7 @@ jobs:
       - name: Install pip dependencies
         run: |
           pip install --upgrade pip
-          pip install buildozer cython==0.29.33
+          pip install buildozer cython==3.0.12
       
       ## Set env variables for P4A Android App Bundle (Signed) [Required by Google Play]
       ## https://gist.github.com/Guhan-SenSam/fa4ed215ef3419e7b3154de5cb71f641
