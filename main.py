@@ -1,3 +1,5 @@
+import ctypes, sys
+ctypes.pythonapi = ctypes.PyDLL("libpython%d.%d.so" % sys.version_info[:2])
 # Imports
 
 import pyrebase
