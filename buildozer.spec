@@ -40,7 +40,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,https://github.com/CarbonKivy/CarbonKivy/archive/master.zip, certifi==2025.4.26, cffi==1.17.1, charset-normalizer==3.4.2, cryptography==44.0.3, docutils==0.21.2, filetype==1.2.0, gcloud==0.18.3, googleapis-common-protos==1.70.0, httplib2==0.22.0, idna==3.10, jwcrypto==1.5.6, Kivy==2.3.1, Kivy-Garden==0.1.5, oauth2client==4.1.3, protobuf==6.31.0rc2, pyasn1==0.6.1, pyasn1_modules==0.4.2, pycparser==2.22, pycryptodome==3.22.0, Pygments==2.19.1, pyparsing==3.2.3, Pyrebase4==4.8.0, python-jwt==4.1.0, requests==2.32.3, requests-toolbelt==0.10.1, rsa==4.9.1, six==1.17.0, typing_extensions==4.13.2, urllib3==1.26.20
+requirements = python3,kivy==2.3.0,kivymd==1.1.1,pillow==10.3.0,pyrebase4,requests,urllib3==1.26.15,oauth2client,httplib2,certifi,charset-normalizer,idna,cffi,Jinja2,jwcrypto,jws,pycryptodome,Pygments,PyJWT,pyparsing,python-jwt,rsa,pyasn1==0.6.1,pyasn1-modules,six,typing_extensions
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
