@@ -3,7 +3,6 @@
 import pyrebase
 import requests
 import os
-from carbonkivy.app import CarbonApp
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
@@ -27,6 +26,13 @@ from kivy.animation import Animation
 from functools import partial # Import partial for button callbacks
 
 # ----------------------------------------------------------------------------------------------------------------------
+from importlib.metadata import version
+
+deplist = ["certifi", "cffi", "cryptography", "docutils", "gcloud", "googleapis-common-protos", "idna", "jwcrypto","kivy", "Kivy-Garden", "oauth2client", "protobuf", "pyasn1", "pyasn1_modules", "pycparser", "pycryptodome", "Pygments", "pyparsing", "Pyrebase4", "python-jwt", "requests", "requests-toolbelt", "rsa", "six", "typing_extensions", "urllib3" ]
+
+for deps in deplist:
+    print(f"{deps}=={version(deps)}")
+
 
 def set_softinput(*args) -> None:
     Window.keyboard_anim_args = {"d": 0.2, "t": "in_out_expo"}
@@ -650,10 +656,109 @@ class PasswordConfirmDeletePopup(Popup):
 
 # Screens
 
-class Settings(CScreen):
+class Settings(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        layout = FloatLayout()
+
+        screen_width, screen_height = Window.size
+        base_font_size = min(screen_width, screen_height) / 20
+
+        self.settings_label = Label(
+            text="Settings:",
+            font_size=self.scale_font(base_font_size * 1.5),
+            color=get_color_from_hex('#ffffff'),
+            size_hint=(None, None),
+            size=(dp(200), dp(60)),
+            pos_hint={'center_x': 0.5, 'top': 1},
+            halign='center',
+            valign='middle'
+        )
+
+        self.Back = Button(
+            text="Back",
+            font_size=self.scale_font(base_font_size * 1.5),
+            color=get_color_from_hex('#fc0303'),
+            pos_hint={'center_x': 0.5, 'top': 0.9},
+            size_hint=(None, None),
+            size=(dp(450), dp(50)),
+            text_size=(dp(450), None),
+            halign='center',
+            background_color=get_color_from_hex('#1303fc'),
+            background_normal=''
+        )
+
+        self.Reset_Password = Button(
+            text="forgot password",
+            bold=True,
+            font_size=self.scale_font(base_font_size * 1.2),
+            color=get_color_from_hex('#ff7403'),
+            pos_hint={'center_x': 0.5, 'top': 0.8},
+            size_hint=(None, None),
+            size=(dp(450), dp(50)),
+            text_size=(dp(450), None),
+            halign='center',
+            background_color=get_color_from_hex('#03ff46'),
+            background_normal=''
+        )
+
+        self.Delete_Recipe_Button = Button(
+            text="delete recipe",
+            bold=True,
+            font_size=self.scale_font(base_font_size * 1.2),
+            color=get_color_from_hex('#FFFFFF'),
+            pos_hint={'center_x': 0.5, 'top': 0.7},
+            size_hint=(None, None),
+            size=(dp(450), dp(50)),
+            text_size=(dp(450), None),
+            halign='center',
+            background_color=get_color_from_hex('#fc03cf'),
+            background_normal=''
+        )
+
+        self.Back.bind(on_press=self.Return_to_main_app)
+        self.Reset_Password.bind(on_press=self.Go_to_Forgot_Password_screen)
+        self.Delete_Recipe_Button.bind(on_press=self.go_to_delete_recipe_screen)
+
+        layout.add_widget(self.settings_label)
+        layout.add_widget(self.Back)
+        layout.add_widget(self.Reset_Password)
+        layout.add_widget(self.Delete_Recipe_Button)
+        self.add_widget(layout)
+
+        Window.bind(size=self.update_label_size)
+        Clock.schedule_once(lambda dt: self.update_label_size(Window, Window.size), 0)
+
+    def update_label_size(self, instance, size):
+        screen_width, screen_height = size
+        base_font_size = min(screen_width, screen_height) / 20
+
+        self.settings_label.font_size = self.scale_font(base_font_size * 1.5)
+        self.Back.font_size = self.scale_font(base_font_size * 1.5)
+        self.Reset_Password.font_size = self.scale_font(base_font_size * 1.2)
+        self.Delete_Recipe_Button.font_size = self.scale_font(base_font_size * 1.2)
+
+        self.settings_label.size = (dp(200), dp(60))
+        self.Back.size = (dp(450), dp(50))
+        self.Reset_Password.size = (dp(450), dp(50))
+        self.Delete_Recipe_Button.size = (dp(450), dp(50))
+
+        self.Back.y = self.settings_label.y - self.settings_label.height - dp(10)
+        self.Reset_Password.y = self.Back.y - self.Back.height - dp(10)
+        self.Delete_Recipe_Button.y = self.Reset_Password.y - self.Reset_Password.height - dp(10)
+
+    def scale_font(self, size):
+        return dp(size)
+
+    def Return_to_main_app(self, instance):
+        self.manager.current = 'app'
+
+    def Go_to_Forgot_Password_screen(self, instance):
+        self.manager.current = 'forgot'
+
+    def go_to_delete_recipe_screen(self, instance):
+        self.manager.current = 'deleterecipe'
 
 class ForgotPassword(Screen):
     def __init__(self, **kwargs):
@@ -1835,7 +1940,7 @@ class MyScreenManager(ScreenManager):
         self.add_widget(DeleteRecipeScreen(name='deleterecipe'))
 
 # Build and run the app
-class MyApp(CarbonApp):
+class MyApp(App):
     def build(self):
         return MyScreenManager(transition=FadeTransition())
 
