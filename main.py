@@ -24,7 +24,10 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.metrics import dp, sp
 from kivy.animation import Animation
 from functools import partial # Import partial for button callbacks
+from kivy.network.urlrequest import UrlRequest
 
+# Lock orientation to portrait
+Window.orientation = 'portrait'
 
 # Firebase Configuration
 
@@ -677,11 +680,12 @@ class Settings(Screen):
             pos_hint={'center_x': 0.5, 'top': 0.6},
             size_hint=(None, None),
             size=(dp(450), dp(50)),
-            text_size=(dp(450), dp(50)),
+            text_size=(dp(450), dp(50)),  # Fixed height for text
             halign='center',
             valign='middle',
             background_color=get_color_from_hex('#03ff46'),
-            background_normal=''
+            background_normal='',
+            padding=(dp(10), dp(5))  # Add padding
         )
 
         self.Delete_Recipe_Button = Button(
@@ -1174,6 +1178,10 @@ class AddRecipe(Screen):
             spacing=dp(20),
         )
 
+        # Add keyboard handling
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
+        self._keyboard.bind(on_key_down=self._on_keyboard_down)
+
         self.Back_Button = Button(
             text='Back',
             size_hint=(None, None),
@@ -1280,6 +1288,22 @@ class AddRecipe(Screen):
         self.layout.add_widget(submit_button)
 
         self.add_widget(self.layout)
+
+    def _keyboard_closed(self):
+        if self._keyboard:
+            self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+            self._keyboard = None
+
+    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        if keycode[1] == 'escape':
+            self.manager.current = 'app'
+            return True
+
+    def on_leave(self):
+        # Clear any pending operations
+        if self._keyboard:
+            self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+            self._keyboard = None
 
     def add_step(self, instance=None):
         step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(80), padding=dp(10))
@@ -1438,6 +1462,8 @@ class MainApp(Screen):
                 bold=True,
                 font_size='18sp',
                 border=(0, 0, 0, 1))
+            middle_btn.button_type = 'view'  # Add identifier
+            middle_btn.cuisine_name = cuisine  # Store cuisine name
             middle_btn.bind(on_press=self.on_cuisine_selected)
             self.middle_cuisine_layout.add_widget(middle_btn)
 
@@ -1450,6 +1476,8 @@ class MainApp(Screen):
                 bold=True,
                 font_size='18sp',
                 border=(0, 0, 0, 1))
+            add_recipe_btn.button_type = 'add'  # Add identifier
+            add_recipe_btn.cuisine_name = cuisine  # Store cuisine name
             add_recipe_btn.bind(on_press=self.on_add_recipe_selected)
             self.add_recipe_cuisine_layout.add_widget(add_recipe_btn)
 
@@ -1513,13 +1541,25 @@ class MainApp(Screen):
             self.cuisine_label.opacity = 1  # Show the label
 
     def on_cuisine_selected(self, instance):
+        # Only handle clicks from middle buttons
+        if not hasattr(instance, 'button_type') or instance.button_type != 'view':
+            return
+        # Only proceed if the middle buttons are visible
+        if self.middle_cuisine_layout.opacity == 0:
+            return
         cuisine_screen = self.manager.get_screen('cuisine_recipes')
-        cuisine_screen.update_cuisine_name(instance.text)
+        cuisine_screen.update_cuisine_name(instance.cuisine_name)
         self.manager.current = 'cuisine_recipes'
 
     def on_add_recipe_selected(self, instance):
+        # Only handle clicks from add recipe buttons
+        if not hasattr(instance, 'button_type') or instance.button_type != 'add':
+            return
+        # Only proceed if the add recipe menu is visible
+        if self.add_recipe_cuisine_layout.opacity == 0:
+            return
         add_recipe_screen = self.manager.get_screen('cuisine')
-        add_recipe_screen.update_cuisine_name(instance.text)
+        add_recipe_screen.update_cuisine_name(instance.cuisine_name)
         self.manager.current = 'cuisine'
 
     def open_settings(self, *args):
@@ -1695,6 +1735,10 @@ class CircularButton(Button):
 class ViewRecipeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        # Add keyboard handling
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
+        self._keyboard.bind(on_key_down=self._on_keyboard_down)
+
         # Main layout will be vertical
         self.main_layout = BoxLayout(orientation='vertical', spacing=dp(10), padding=dp(10))
         self.add_widget(self.main_layout)
@@ -1802,6 +1846,22 @@ class ViewRecipeScreen(Screen):
 
     def go_back(self, instance):
         self.manager.current = 'cuisine_recipes'
+
+    def _keyboard_closed(self):
+        if self._keyboard:
+            self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+            self._keyboard = None
+
+    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        if keycode[1] == 'escape':
+            self.manager.current = 'cuisine_recipes'
+            return True
+
+    def on_leave(self):
+        # Clear any pending operations
+        if self._keyboard:
+            self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+            self._keyboard = None
 
 # Define the DeleteRecipeScreen class
 class DeleteRecipeScreen(Screen):
