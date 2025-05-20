@@ -25,8 +25,6 @@ from kivy.animation import Animation
 from functools import partial # Import partial for button callbacks
 
 
-Builder.load_file("root.kv")
-
 # Firebase Configuration
 
 config = {
