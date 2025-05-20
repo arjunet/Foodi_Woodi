@@ -670,15 +670,16 @@ class Settings(Screen):
         )
 
         self.Reset_Password = Button(
-            text="forgot password",
+            text="Forgot Password",
             bold=True,
             font_size=self.scale_font(base_font_size * 1.2),
             color=get_color_from_hex('#ff7403'),
             pos_hint={'center_x': 0.5, 'top': 0.6},
             size_hint=(None, None),
             size=(dp(450), dp(50)),
-            text_size=(dp(450), None),
+            text_size=(dp(450), dp(50)),
             halign='center',
+            valign='middle',
             background_color=get_color_from_hex('#03ff46'),
             background_normal=''
         )
@@ -1238,7 +1239,7 @@ class AddRecipe(Screen):
 
         self.step_inputs = []
         for i in range(1, 8):
-            step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(60))
+            step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(80), padding=dp(10))
             step_label = Label(
                 text=f"Step {i}:",
                 font_size=sp(28),
@@ -1281,7 +1282,7 @@ class AddRecipe(Screen):
         self.add_widget(self.layout)
 
     def add_step(self, instance=None):
-        step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=60)
+        step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(80), padding=dp(10))
         step_label = Label(
             text=f"Step {len(self.step_inputs) + 1}:",
             font_size=sp(28),
@@ -1297,7 +1298,8 @@ class AddRecipe(Screen):
             padding=dp(10),
         )
         self.step_inputs.append(step_input)
-        step_row.add_widget(step_label), step_row.add_widget(step_input)
+        step_row.add_widget(step_label)
+        step_row.add_widget(step_input)
         self.step_grid.add_widget(step_row)
 
     def update_cuisine_name(self, cuisine_name):
@@ -1482,10 +1484,22 @@ class MainApp(Screen):
         btn = self.add_recipe_button
         btn_x = btn.x
         btn_top = btn.y + btn.height
-        dropdown_x = btn_x + (btn.width / 2) - (self.add_recipe_cuisine_layout.width / 2)
-        dropdown_y = btn_top
-        self.add_recipe_cuisine_layout.pos = (dropdown_x, dropdown_y)
-        self.add_recipe_cuisine_layout.height = Window.height - dropdown_y
+        
+        # Calculate the center position of the button
+        btn_center_x = btn_x + (btn.width / 2)
+        
+        # Calculate the menu position to be centered on the button
+        menu_width = self.add_recipe_cuisine_layout.width
+        menu_x = btn_center_x - (menu_width / 2)
+        
+        # Ensure the menu stays within screen bounds
+        if menu_x < 0:
+            menu_x = 0
+        elif menu_x + menu_width > Window.width:
+            menu_x = Window.width - menu_width
+            
+        self.add_recipe_cuisine_layout.pos = (menu_x, btn_top)
+        self.add_recipe_cuisine_layout.height = Window.height - btn_top
 
     def toggle_add_recipe_menu(self, instance):
         if self.add_recipe_cuisine_layout.opacity == 0:
