@@ -11,7 +11,6 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
-from carbonkivy.uix.screen import CScreen
 from kivy.utils import get_color_from_hex
 from kivy.uix.popup import Popup
 from kivy.uix.widget import Widget
@@ -25,24 +24,6 @@ from kivy.metrics import dp
 from kivy.animation import Animation
 from functools import partial # Import partial for button callbacks
 
-# ----------------------------------------------------------------------------------------------------------------------
-from importlib.metadata import version
-
-deplist = ["certifi", "cffi", "cryptography", "docutils", "gcloud", "googleapis-common-protos", "idna", "jwcrypto","kivy", "Kivy-Garden", "oauth2client", "protobuf", "pyasn1", "pyasn1_modules", "pycparser", "pycryptodome", "Pygments", "pyparsing", "Pyrebase4", "python-jwt", "requests", "requests-toolbelt", "rsa", "six", "typing_extensions", "urllib3" ]
-
-for deps in deplist:
-    print(f"{deps}=={version(deps)}")
-
-
-def set_softinput(*args) -> None:
-    Window.keyboard_anim_args = {"d": 0.2, "t": "in_out_expo"}
-    Window.softinput_mode = "below_target"
-
-
-Window.on_restore(Clock.schedule_once(set_softinput, 0.1))
-
-
-from kivy.lang import Builder
 
 Builder.load_file("root.kv")
 
