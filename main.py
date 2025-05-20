@@ -20,7 +20,8 @@ from kivy.properties import NumericProperty
 from kivy.core.window import Window
 from kivy.clock import Clock
 from kivy.uix.floatlayout import FloatLayout
-from kivy.metrics import dp
+from kivy.uix.stacklayout import StackLayout
+from kivy.metrics import dp, sp
 from kivy.animation import Animation
 from functools import partial # Import partial for button callbacks
 
@@ -639,7 +640,7 @@ class Settings(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        layout = FloatLayout()
+        layout = FloatLayout(size_hint=(1, 1))
 
         screen_width, screen_height = Window.size
         base_font_size = min(screen_width, screen_height) / 20
@@ -659,7 +660,7 @@ class Settings(Screen):
             text="Back",
             font_size=self.scale_font(base_font_size * 1.5),
             color=get_color_from_hex('#fc0303'),
-            pos_hint={'center_x': 0.5, 'top': 0.9},
+            pos_hint={'center_x': 0.5, 'top': 0.8},
             size_hint=(None, None),
             size=(dp(450), dp(50)),
             text_size=(dp(450), None),
@@ -673,7 +674,7 @@ class Settings(Screen):
             bold=True,
             font_size=self.scale_font(base_font_size * 1.2),
             color=get_color_from_hex('#ff7403'),
-            pos_hint={'center_x': 0.5, 'top': 0.8},
+            pos_hint={'center_x': 0.5, 'top': 0.6},
             size_hint=(None, None),
             size=(dp(450), dp(50)),
             text_size=(dp(450), None),
@@ -687,7 +688,7 @@ class Settings(Screen):
             bold=True,
             font_size=self.scale_font(base_font_size * 1.2),
             color=get_color_from_hex('#FFFFFF'),
-            pos_hint={'center_x': 0.5, 'top': 0.7},
+            pos_hint={'center_x': 0.5, 'top': 0.4},
             size_hint=(None, None),
             size=(dp(450), dp(50)),
             text_size=(dp(450), None),
@@ -884,13 +885,13 @@ class WelcomeScreen(Screen):
         self.clear_widgets()
         layout = BoxLayout(
             orientation='vertical',
-            spacing=20,
-            padding=50
+            spacing=dp(20),
+            padding=dp(50)
         )
 
         welcome_label = Label(
-            text="Welcome to Foodi Woodi!!!",
-            font_size=40,
+            text=f"Welcome to \n Foodi Woodi!!!",
+            font_size=sp(32),
             bold=True,
             color=get_color_from_hex('#ffffff')
         )
@@ -899,10 +900,10 @@ class WelcomeScreen(Screen):
             text="Proceed",
             size_hint=(0.6, 0.15),
             pos_hint={'center_x': 0.5},
-            background_color=get_color_from_hex('#0905f5'),
+            background_color=get_color_from_hex('#0f62fe'),
             background_normal='',
-            color="black",
-            font_size=24
+            color="white",
+            font_size=sp(24),
         )
         proceed_button.bind(on_press=self.on_proceed_clicked)
 
@@ -992,20 +993,20 @@ class LoginScreen(Screen):
         super().__init__(**kwargs)
         main_layout = BoxLayout(
             orientation='vertical',
-            spacing=10,
-            padding=10
+            spacing=dp(10),
+            padding=dp(10)
         )
 
         input_layout = BoxLayout(
             orientation='vertical',
-            spacing=10
+            spacing=dp(10)
         )
 
         self.email_input = TextInput(
             hint_text='Email',
             multiline=False,
             background_color=(0, 0, 0, 1),
-            font_size=40,
+            font_size=sp(28),
             hint_text_color=(0, 1, 0, 1),
             foreground_color=(1, 1, 1, 1)
         )
@@ -1015,7 +1016,7 @@ class LoginScreen(Screen):
             multiline=False,
             password=True,
             background_color=(0, 0, 0, 1),
-            font_size=40,
+            font_size=sp(28),
             hint_text_color=(0, 1, 0, 1),
             foreground_color=(1, 1, 1, 1)
         )
@@ -1025,10 +1026,11 @@ class LoginScreen(Screen):
 
         self.login_button = Button(
             text='Login',
+            size_hint=(1, 0.2),
             background_color=get_color_from_hex('#f57905'),
             background_normal='',
             bold=True,
-            font_size=20,
+            font_size=sp(22),
             color="black"
         )
         self.login_button.bind(on_press=self.login)
@@ -1036,13 +1038,13 @@ class LoginScreen(Screen):
         main_layout.add_widget(self.login_button)
 
         self.signup_button = Button(
-            text="Don't have an account? Create one here.",
+            text=f"Don't have an account?\nCreate one here.",
             size_hint=(1, 0.2),
-            background_color=get_color_from_hex('#0905f5'),
+            background_color=get_color_from_hex('#0f62fe'),
             background_normal='',
             bold=True,
-            font_size=20,
-            color="black"
+            font_size=sp(22),
+            color="white"
         )
         self.signup_button.bind(on_press=self.open_signup_screen)
         main_layout.add_widget(self.signup_button)
@@ -1096,7 +1098,7 @@ class SignupScreen(Screen):
             hint_text='Email',
             multiline=False,
             background_color=(0, 0, 0, 1),
-            font_size=40,
+            font_size=sp(28),
             hint_text_color=(0, 1, 0, 1),
             foreground_color=(1, 1, 1, 1)
         )
@@ -1106,7 +1108,7 @@ class SignupScreen(Screen):
             hint_text='Password',
             multiline=False,
             background_color=(0, 0, 0, 1),
-            font_size=40,
+            font_size=sp(28),
             hint_text_color=(0, 1, 0, 1),
             foreground_color=(1, 1, 1, 1)
         )
@@ -1115,7 +1117,7 @@ class SignupScreen(Screen):
             hint_text='Your Name',
             multiline=False,
             background_color=(0, 0, 0, 1),
-            font_size=40,
+            font_size=sp(28),
             hint_text_color=(0, 1, 0, 1),
             foreground_color=(1, 1, 1, 1)
         )
@@ -1126,7 +1128,7 @@ class SignupScreen(Screen):
             background_color=get_color_from_hex('#31f505'),
             background_normal='',
             bold=True,
-            font_size=20,
+            font_size=sp(22),
             color="black"
         )
         signup_button.bind(on_press=self.verifyopen)
@@ -1138,7 +1140,7 @@ class SignupScreen(Screen):
             background_color=get_color_from_hex('#a905f5'),
             background_normal='',
             bold=True,
-            font_size=20,
+            font_size=sp(22),
             color="black"
         )
         back_to_login_button.bind(on_press=self.back_to_login)
@@ -1167,18 +1169,19 @@ class AddRecipe(Screen):
         self.cuisine_name = ""  # Store selected cuisine name
         self.layout = BoxLayout(
             orientation='vertical',
-            padding=20,
-            spacing=20)
+            padding=dp(20),
+            spacing=dp(20),
+        )
 
         self.Back_Button = Button(
             text='Back',
             size_hint=(None, None),
-            size=(100, 50),
+            size=(dp(100), dp(50)),
             pos_hint={'x': 0, 'top': 1},
             background_color=get_color_from_hex('#ff2121'),
             background_normal='',
             bold=True,
-            font_size=20,
+            font_size=sp(22),
             color="black"
         )
         self.Back_Button.bind(on_press=self.back)
@@ -1187,12 +1190,12 @@ class AddRecipe(Screen):
         self.Add_Step = Button(
             text='add step',
             size_hint=(None, None),
-            size=(100, 50),
+            size=(dp(100), dp(50)),
             pos_hint={'y': 0, 'top': 1},
             background_color=get_color_from_hex('#2125ff'),
             background_normal='',
             bold=True,
-            font_size=20,
+            font_size=sp(22),
             color="black"
         )
         self.Add_Step.bind(on_press=self.add_step)
@@ -1203,9 +1206,9 @@ class AddRecipe(Screen):
             hint_text='Recipe Title goes here',
             background_color=(0, 0, 0, 1),
             foreground_color=(1, 1, 1, 1),
-            font_size=30,
+            font_size=sp(28),
             multiline=False,
-            padding=(10, 10)
+            padding=dp(10),
         )
         self.layout.add_widget(self.title_input)
 
@@ -1213,43 +1216,43 @@ class AddRecipe(Screen):
             hint_text='Ingredients goes here',
             background_color=(0, 0, 0, 1),
             foreground_color=(1, 1, 1, 1),
-            font_size=30,
+            font_size=sp(28),
             multiline=False,
-            padding=(10, 10)
+            padding=dp(10),
         )
         self.layout.add_widget(self.ingredients)
 
         # Message label
         self.message = Label(
-            font_size=30,
+            font_size=sp(28),
             halign='center',
             size_hint_y=None,
-            height=60
+            height=dp(60)
         )
         self.layout.add_widget(self.message)
 
         # ScrollView for steps
         scroll = ScrollView()
-        self.step_grid = GridLayout(cols=1, spacing=10, size_hint_y=None, size_hint_x=1)
+        self.step_grid = GridLayout(cols=1, spacing=dp(10), size_hint_y=None, size_hint_x=1)
         self.step_grid.bind(minimum_height=self.step_grid.setter('height'))
 
         self.step_inputs = []
         for i in range(1, 8):
-            step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=60)
+            step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(60))
             step_label = Label(
                 text=f"Step {i}:",
-                font_size=30,
+                font_size=sp(28),
                 size_hint=(None, 1),  # Fix size hint to None for width
-                width=100,  # Set a fixed width
+                width=dp(100),  # Set a fixed width
                 halign='left'
             )
 
             step_input = TextInput(
                 background_color=(0, 0, 0, 1),
                 foreground_color=(1, 1, 1, 1),
-                font_size=30,
+                font_size=sp(28),
                 multiline=False,
-                padding=(10, 10)
+                padding=dp(10),
             )
 
             self.step_inputs.append(step_input)
@@ -1264,11 +1267,11 @@ class AddRecipe(Screen):
         submit_button = Button(
             text='Submit Recipe',
             size_hint=(1, None),
-            height=50,
+            height=dp(50),
             background_color=get_color_from_hex('#31f505'),
             background_normal='',
             bold=True,
-            font_size=20,
+            font_size=sp(22),
             color="black"
         )
 
@@ -1281,17 +1284,17 @@ class AddRecipe(Screen):
         step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=60)
         step_label = Label(
             text=f"Step {len(self.step_inputs) + 1}:",
-            font_size=30,
+            font_size=sp(28),
             size_hint=(None, 1),  # Fix size hint to None for width
-            width=100,  # Set a fixed width
+            width=dp(100),  # Set a fixed width
             halign='left'
         )
         step_input = TextInput(
             background_color=(0, 0, 0, 1),
             foreground_color=(1, 1, 1, 1),
-            font_size=30,
+            font_size=sp(28),
             multiline=False,
-            padding=(10, 10)
+            padding=dp(10),
         )
         self.step_inputs.append(step_input)
         step_row.add_widget(step_label), step_row.add_widget(step_input)
@@ -1364,10 +1367,10 @@ class MainApp(Screen):
         self.middle_cuisine_layout = BoxLayout(
             orientation='vertical',
             size_hint=(None, None),
-            width=200,
+            width=dp(200),
             height=Window.height * 0.8,  # Make it 80% of window height
-            spacing=5,
-            padding=5,
+            spacing=dp(5),
+            padding=dp(5),
             pos_hint={'center_x': 0.5, 'top': 0.95}  # Position near the top
         )
 
@@ -1387,7 +1390,7 @@ class MainApp(Screen):
             font_size='20sp',
             bold=True,
             size_hint=(None, None),
-            size=(400, 50),
+            size=(dp(400), dp(50)),
             pos_hint={'center_x': 0.5, 'y': 0.1}  # Position below the buttons
         )
         self.layout.add_widget(self.cuisine_label)
@@ -1396,10 +1399,10 @@ class MainApp(Screen):
         self.add_recipe_cuisine_layout = BoxLayout(
             orientation='vertical',
             size_hint=(None, None),
-            width=200,
-            height=400,
-            spacing=5,
-            padding=5,
+            width=dp(200),
+            height=dp(400),
+            spacing=dp(5),
+            padding=dp(5),
             opacity=0  # Hidden by default
         )
 
@@ -1452,7 +1455,7 @@ class MainApp(Screen):
         self.add_recipe_button = CircularButton(
             text="+",
             size_hint=(None, None),
-            size=(60, 60),
+            size=(dp(60), dp(60)),
             pos_hint={'bottom': 1, 'right': 0.1}
         )
         self.add_recipe_button.bind(
@@ -1528,10 +1531,10 @@ class CuisineRecipesScreen(Screen):
         # Label at the top
         self.cuisine_label = Label(
             text="Recipes for selected cuisine will appear here",
-            font_size=24,
+            font_size=sp(24),
             color=(1, 1, 1, 1),
             size_hint_y=None,
-            height=50
+            height=dp(50)
         )
         self.layout.add_widget(self.cuisine_label)
 
@@ -1546,7 +1549,7 @@ class CuisineRecipesScreen(Screen):
         self.back_button = Button(
             text="Back",
             size_hint=(None, None),
-            size=(100, 50),
+            size=(dp(100), dp(50)),
             pos_hint={'center_x': 0.5},
             background_color=get_color_from_hex('#fc8403'),  # Orange color
             background_normal='',  # Important for background_color to take effect
@@ -1735,7 +1738,7 @@ class ViewRecipeScreen(Screen):
         # 4. Back Button (Very Bottom)
         self.back_button = Button(
             text="Back",
-            font_size=dp(18),
+            font_size=sp(22),
             size_hint=(1, None), # Full width
             height=dp(50),
             background_color=get_color_from_hex('#fc0303'), # Red color
@@ -1790,11 +1793,11 @@ class ViewRecipeScreen(Screen):
 class DeleteRecipeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.layout = BoxLayout(orientation='vertical', padding=dp(10), spacing=dp(10))
+        self.layout = BoxLayout(orientation='vertical', padding=dp(10), spacing=dp(30))
 
         title_label = Label(
             text="Your Uploaded Recipes",
-            font_size=dp(24),
+            font_size=sp(26),
             size_hint_y=None,
             height=dp(50),
             color=get_color_from_hex('#FFFFFF')
