@@ -673,7 +673,7 @@ class Settings(Screen):
         self.Reset_Password = Button(
             text="Forgot Password",
             bold=True,
-            font_size=sp(32),
+            font_size=sp(26),
             color=get_color_from_hex('#0f62fe'),
             pos_hint={'center_x': 0.5, 'top': 0.6},
             size_hint=(None, None),
