@@ -47,7 +47,7 @@ jobs:
           path: ~/.buildozer/android/platform/android-sdk
           key: ${{ runner.os }}-android-sdk
           restore-keys: |
-            ${{ runner.os }}-android-sdk
+            ${{ runner.os }}-android-sdk-
 
       - name: Cache Android NDK
         uses: actions/cache@v4
@@ -55,7 +55,7 @@ jobs:
           path: ~/.buildozer/android/platform/android-ndk-r25b
           key: ${{ runner.os }}-android-ndk
           restore-keys: |
-            ${{ runner.os }}-android-ndk
+            ${{ runner.os }}-android-ndk-
 
       # Install dependencies
       - name: Install dependencies
