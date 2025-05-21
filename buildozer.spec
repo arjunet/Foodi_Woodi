@@ -40,7 +40,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, https://github.com/CarbonKivy/CarbonKivy/archive/master.zip, charset-normalizer, pyrebase4, certifi==2025.4.26, cffi==1.15.1, cryptography==44.0.3, docutils==0.21.2, gcloud==0.18.3, googleapis-common-protos==1.70.0, httplib2, idna==3.10, Jinja2, jwcrypto==1.5.6, pycryptodome, python-jwt, kivy==2.3.0, Kivy-Garden==0.1.5, oauth2client==4.1.3, protobuf==6.31.0rc2, pyasn1==0.6.1, pyasn1_modules==0.4.2, pycparser==2.14, Pygments, pyparsing, filetype, requests, requests-toolbelt, rsa, six, typing_extensions, urllib3=1.26.3
+requirements = python3, https://github.com/CarbonKivy/CarbonKivy/archive/master.zip, charset-normalizer, pyrebase4, certifi==2025.4.26, cffi==1.15.1, cryptography==44.0.3, docutils==0.21.2, gcloud==0.18.3, googleapis-common-protos==1.70.0, httplib2, idna==3.10, Jinja2, jwcrypto==1.5.6, pycryptodome, python-jwt, kivy==2.3.0, Kivy-Garden==0.1.5, oauth2client==4.1.3, protobuf==6.31.0rc2, pyasn1==0.6.1, pyasn1_modules==0.4.2, pycparser==2.14, Pygments, pyparsing, filetype, requests, requests-toolbelt, rsa, six, typing_extensions, urllib3==1.26.3
 
 # (str) Presplash of the application
 presplash.filename = %(source.dir)s/images/icon.png 
