@@ -650,10 +650,9 @@ class Settings(Screen):
 
         self.settings_label = Label(
             text="Settings:",
-            font_size=self.scale_font(base_font_size * 1.5),
+            font_size=sp(32),
             color=get_color_from_hex('#ffffff'),
             size_hint=(None, None),
-            size=(dp(200), dp(60)),
             pos_hint={'center_x': 0.5, 'top': 1},
             halign='center',
             valign='middle'
@@ -661,12 +660,11 @@ class Settings(Screen):
 
         self.Back = Button(
             text="Back",
-            font_size=self.scale_font(base_font_size * 1.5),
+            font_size=sp(32),
             color=get_color_from_hex('#fc0303'),
             pos_hint={'center_x': 0.5, 'top': 0.8},
             size_hint=(None, None),
             size=(dp(450), dp(50)),
-            text_size=(dp(450), None),
             halign='center',
             background_color=get_color_from_hex('#1303fc'),
             background_normal=''
@@ -675,12 +673,11 @@ class Settings(Screen):
         self.Reset_Password = Button(
             text="Forgot Password",
             bold=True,
-            font_size=self.scale_font(base_font_size * 1.2),
-            color=get_color_from_hex('#ff7403'),
+            font_size=sp(32),
+            color=get_color_from_hex('#0f62fe'),
             pos_hint={'center_x': 0.5, 'top': 0.6},
             size_hint=(None, None),
             size=(dp(450), dp(50)),
-            text_size=(dp(450), dp(50)),  # Fixed height for text
             halign='center',
             valign='middle',
             background_color=get_color_from_hex('#03ff46'),
@@ -691,12 +688,11 @@ class Settings(Screen):
         self.Delete_Recipe_Button = Button(
             text="delete recipe",
             bold=True,
-            font_size=self.scale_font(base_font_size * 1.2),
+            font_size=sp(32),
             color=get_color_from_hex('#FFFFFF'),
             pos_hint={'center_x': 0.5, 'top': 0.4},
             size_hint=(None, None),
             size=(dp(450), dp(50)),
-            text_size=(dp(450), None),
             halign='center',
             background_color=get_color_from_hex('#fc03cf'),
             background_normal=''
@@ -712,7 +708,7 @@ class Settings(Screen):
         layout.add_widget(self.Delete_Recipe_Button)
         self.add_widget(layout)
 
-        Window.bind(size=self.update_label_size)
+        # Window.bind(size=self.update_label_size)
         Clock.schedule_once(lambda dt: self.update_label_size(Window, Window.size), 0)
 
     def update_label_size(self, instance, size):
