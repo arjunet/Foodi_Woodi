@@ -79,8 +79,8 @@ class EmailNotVerifiedPopup(Popup):
         super().__init__(**kwargs)
         self.id_token = id_token
         self.title = "Email Not Verified"
-        self.size_hint = (None, None)
-        self.size = (400, 250)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(orientation='vertical', padding=10, spacing=10)
         content.add_widget(Label(
@@ -115,8 +115,8 @@ class TitleErrorPopup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Error"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -151,8 +151,8 @@ class Verifacation(Popup):
         self.password = password
         self.username = username
         self.title = "Verify"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -212,8 +212,8 @@ class IngredientsErrorPopup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Error"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -244,8 +244,8 @@ class StepsErrorPopup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Error"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -277,8 +277,8 @@ class PasswordErrorPopup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Password Error"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -310,8 +310,8 @@ class EmailErrorPopup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Email Error"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
         content = BoxLayout(
             orientation='vertical',
             padding=10,
@@ -341,8 +341,8 @@ class CredentialsErrorPopup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Invalid Credentials"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
         content = BoxLayout(
             orientation='vertical',
             padding=10,
@@ -371,8 +371,8 @@ class ExistsErrorPopup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Exists"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -401,8 +401,8 @@ class ServerError(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Server error"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -431,8 +431,8 @@ class SuccessEmail(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Success"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -461,8 +461,8 @@ class Success(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Success"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -491,8 +491,8 @@ class Failiure(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Error"
-        self.size_hint = (None, None)
-        self.size = (400, 200)
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(
             orientation='vertical',
@@ -522,8 +522,8 @@ class RecipeDeletedSuccessPopup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Success"  # Keeping the title "Success" for theme consistency
-        self.size_hint = (None, None)
-        self.size = (dp(400), dp(200)) # Using dp for consistency
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content_layout = BoxLayout(
             orientation='vertical',
@@ -564,8 +564,8 @@ class PasswordConfirmDeletePopup(Popup):
         self.delete_callback = delete_callback
 
         self.title = "Confirm Deletion"
-        self.size_hint = (None, None)
-        self.size = (dp(400), dp(300))
+        self.size_hint = (0.8, None)
+        self.height = dp(400)
 
         content = BoxLayout(orientation='vertical', padding=dp(10), spacing=dp(10))
         
@@ -650,7 +650,7 @@ class Settings(Screen):
 
         self.settings_label = Label(
             text="Settings:",
-            font_size=sp(32),
+            font_size=sp(28),
             color=get_color_from_hex('#ffffff'),
             size_hint=(None, None),
             pos_hint={'center_x': 0.5, 'top': 1},
@@ -660,13 +660,13 @@ class Settings(Screen):
 
         self.Back = Button(
             text="Back",
-            font_size=sp(32),
-            color=get_color_from_hex('#fc0303'),
+            font_size=sp(26),
+            color=get_color_from_hex('#ffffff'),
             pos_hint={'center_x': 0.5, 'top': 0.8},
-            size_hint=(None, None),
-            size=(dp(450), dp(50)),
+            size_hint=(0.7, None),
+            height=(dp(70)),
             halign='center',
-            background_color=get_color_from_hex('#1303fc'),
+            background_color=get_color_from_hex('#0f62fe'),
             background_normal=''
         )
 
@@ -676,8 +676,8 @@ class Settings(Screen):
             font_size=sp(26),
             color=get_color_from_hex('#0f62fe'),
             pos_hint={'center_x': 0.5, 'top': 0.6},
-            size_hint=(None, None),
-            size=(dp(450), dp(50)),
+            size_hint=(0.7, None),
+            height=(dp(70)),
             halign='center',
             valign='middle',
             background_color=get_color_from_hex('#03ff46'),
@@ -688,11 +688,11 @@ class Settings(Screen):
         self.Delete_Recipe_Button = Button(
             text="delete recipe",
             bold=True,
-            font_size=sp(32),
+            font_size=sp(26),
             color=get_color_from_hex('#FFFFFF'),
             pos_hint={'center_x': 0.5, 'top': 0.4},
-            size_hint=(None, None),
-            size=(dp(450), dp(50)),
+            size_hint=(0.7, None),
+            height=(dp(70)),
             halign='center',
             background_color=get_color_from_hex('#fc03cf'),
             background_normal=''
@@ -917,7 +917,7 @@ class WelcomeScreen(Screen):
         Clock.schedule_once(lambda dt: self.attempt_auto_login(), 0.1)
 
     def attempt_auto_login(self):
-        token_result = load_tokens()
+        token_result = list(load_tokens())
 
         try:
             if token_result and len(token_result) == 2:
