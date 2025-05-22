@@ -660,10 +660,10 @@ class Settings(Screen):
 
         self.Back = Button(
             text="Back",
-            font_size=sp(26),
+            font_size=sp(22),
             color=get_color_from_hex('#ffffff'),
             pos_hint={'center_x': 0.5, 'top': 0.8},
-            size_hint=(0.7, None),
+            size_hint=(0.8, None),
             height=(dp(70)),
             halign='center',
             background_color=get_color_from_hex('#0f62fe'),
@@ -673,25 +673,24 @@ class Settings(Screen):
         self.Reset_Password = Button(
             text="Forgot Password",
             bold=True,
-            font_size=sp(26),
+            font_size=sp(22),
             color=get_color_from_hex('#0f62fe'),
             pos_hint={'center_x': 0.5, 'top': 0.6},
-            size_hint=(0.7, None),
+            size_hint=(0.8, None),
             height=(dp(70)),
             halign='center',
             valign='middle',
             background_color=get_color_from_hex('#03ff46'),
-            background_normal='',
-            padding=(dp(10), dp(5))  # Add padding
+            background_normal='',  # Add padding
         )
 
         self.Delete_Recipe_Button = Button(
             text="delete recipe",
             bold=True,
-            font_size=sp(26),
+            font_size=sp(22),
             color=get_color_from_hex('#FFFFFF'),
             pos_hint={'center_x': 0.5, 'top': 0.4},
-            size_hint=(0.7, None),
+            size_hint=(0.8, None),
             height=(dp(70)),
             halign='center',
             background_color=get_color_from_hex('#fc03cf'),
@@ -709,7 +708,7 @@ class Settings(Screen):
         self.add_widget(layout)
 
         # Window.bind(size=self.update_label_size)
-        Clock.schedule_once(lambda dt: self.update_label_size(Window, Window.size), 0)
+        # Clock.schedule_once(lambda dt: self.update_label_size(Window, Window.size), 0)
 
     def update_label_size(self, instance, size):
         screen_width, screen_height = size
