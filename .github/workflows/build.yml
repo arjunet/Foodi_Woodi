@@ -29,17 +29,17 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.buildozer
-          key: buildozer-global-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+          key: ${{ runner.os }}-buildozer-global
           restore-keys: |
-            buildozer-global-${{ runner.os }}-
+            ${{ runner.os }}-buildozer-global
 
       - name: Cache Buildozer directory in app
         uses: actions/cache@v4
         with:
           path: .buildozer
-          key: ${{ runner.os }}-buildozer-${{ github.run_id }}-${{ hashFiles('buildozer.spec') }}
+          key: ${{ runner.os }}-buildozer-app
           restore-keys: |
-            ${{ runner.os }}-buildozer-
+            ${{ runner.os }}-buildozer-app
 
       - name: Cache Android SDK
         uses: actions/cache@v4
@@ -47,15 +47,7 @@ jobs:
           path: ~/.buildozer/android/platform/android-sdk
           key: ${{ runner.os }}-android-sdk
           restore-keys: |
-            ${{ runner.os }}-android-sdk-
-
-      - name: Cache Android NDK
-        uses: actions/cache@v4
-        with:
-          path: ~/.buildozer/android/platform/android-ndk-r25b
-          key: ${{ runner.os }}-android-ndk
-          restore-keys: |
-            ${{ runner.os }}-android-ndk-
+            ${{ runner.os }}-android-sdk
 
       # Install dependencies
       - name: Install dependencies
