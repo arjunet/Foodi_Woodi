@@ -876,13 +876,13 @@ class ForgotPassword(Screen):
         App.get_running_app().stop()
 
 class WelcomeScreen(Screen):
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.loading_popup = None
-        self.show_welcome_ui()  # Always show welcome UI first, then goes to the login screen, or auto-logins the user
+        Clock.schedule_once(self.show_welcome_ui, 1)  # Always show welcome UI first, then goes to the login screen, or auto-logins the user
 
-    def show_welcome_ui(self):
-        self.clear_widgets()
+    def show_welcome_ui(self, *args):
         layout = BoxLayout(
             orientation='vertical',
             spacing=dp(20),
@@ -1173,9 +1173,7 @@ class AddRecipe(Screen):
             spacing=dp(20),
         )
 
-        # Add keyboard handling
-        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
-        self._keyboard.bind(on_key_down=self._on_keyboard_down)
+        Window.bind(on_keyboard_down=self._on_keyboard_down)
 
         self.Back_Button = Button(
             text='Back',
@@ -1296,9 +1294,7 @@ class AddRecipe(Screen):
 
     def on_leave(self):
         # Clear any pending operations
-        if self._keyboard:
-            self._keyboard.unbind(on_key_down=self._on_keyboard_down)
-            self._keyboard = None
+        Window.unbind(on_keyboard_down=self._on_keyboard_down)
 
     def add_step(self, instance=None):
         step_row = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(80), padding=dp(10))
@@ -1456,7 +1452,8 @@ class MainApp(Screen):
                 color=(0, 0, 0, 1),
                 bold=True,
                 font_size='18sp',
-                border=(0, 0, 0, 1))
+                border=(0, 0, 0, 1),
+            )
             middle_btn.button_type = 'view'  # Add identifier
             middle_btn.cuisine_name = cuisine  # Store cuisine name
             middle_btn.bind(on_press=self.on_cuisine_selected)
@@ -1481,7 +1478,7 @@ class MainApp(Screen):
             text="+",
             size_hint=(None, None),
             size=(dp(60), dp(60)),
-            pos_hint={'bottom': 1, 'right': 0.1}
+            pos_hint={'bottom': 1, 'right': 0.2}
         )
         self.add_recipe_button.bind(
             on_press=self.toggle_add_recipe_menu,
@@ -1535,7 +1532,7 @@ class MainApp(Screen):
             self.middle_cuisine_layout.opacity = 1  # Show middle buttons
             self.cuisine_label.opacity = 1  # Show the label
 
-    def on_cuisine_selected(self, instance):
+    def on_cuisine_selected(self, instance, *args):
         # Only handle clicks from middle buttons
         if not hasattr(instance, 'button_type') or instance.button_type != 'view':
             return
@@ -1731,8 +1728,7 @@ class ViewRecipeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # Add keyboard handling
-        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
-        self._keyboard.bind(on_key_down=self._on_keyboard_down)
+        Window.bind(on_keyboard_down=self._on_keyboard_down)
 
         # Main layout will be vertical
         self.main_layout = BoxLayout(orientation='vertical', spacing=dp(10), padding=dp(10))
@@ -1854,9 +1850,7 @@ class ViewRecipeScreen(Screen):
 
     def on_leave(self):
         # Clear any pending operations
-        if self._keyboard:
-            self._keyboard.unbind(on_key_down=self._on_keyboard_down)
-            self._keyboard = None
+        Window.unbind(on_keyboard_down=self._on_keyboard_down)
 
 # Define the DeleteRecipeScreen class
 class DeleteRecipeScreen(Screen):
