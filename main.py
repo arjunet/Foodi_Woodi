@@ -184,7 +184,7 @@ class Verifacation(Popup):
         try:
             user = auth.create_user_with_email_and_password(self.email, self.password)
             auth.send_email_verification(user['idToken'])
-            save_tokens(user['idToken'], user['refreshToken'])
+            # Removed save_tokens call here to prevent auto-login before email verification
 
             db.child("users").child(user['localId']).set({
                 "email": self.email,
