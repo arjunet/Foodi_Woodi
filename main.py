@@ -1399,6 +1399,7 @@ class MainApp(Screen):
             )
         self.middle_cuisine_layout.bind(pos=self.update_bg_rect, size=self.update_bg_rect)
         self.layout.add_widget(self.middle_cuisine_layout)
+        self.layout.ids["l2"] = self.middle_cuisine_layout
 
         # Add label below middle buttons
         self.cuisine_label = Label(
@@ -1415,22 +1416,20 @@ class MainApp(Screen):
         # Create a vertical layout for ADD RECIPE cuisine buttons (hidden by default)
         self.add_recipe_cuisine_layout = BoxLayout(
             orientation='vertical',
-            size_hint=(None, None),
+            size_hint=(None, 0.8),
             width=dp(200),
-            height=dp(400),
             spacing=dp(5),
             padding=dp(5),
-            opacity=0  # Hidden by default
+            pos_hint={'right': 0.5, 'top': 0.95}  # Position near the top
         )
 
         with self.add_recipe_cuisine_layout.canvas.before:
-            Color(0, 0, 0, 0.7)
+            Color(0, 0, 0, 1)
             self.add_recipe_cuisine_layout.bg_rect = Rectangle(
                 pos=self.add_recipe_cuisine_layout.pos,
                 size=self.add_recipe_cuisine_layout.size
             )
         self.add_recipe_cuisine_layout.bind(pos=self.update_bg_rect, size=self.update_bg_rect)
-        self.layout.add_widget(self.add_recipe_cuisine_layout)
 
         cuisines = [
             "Italian",
@@ -1482,8 +1481,7 @@ class MainApp(Screen):
         )
         self.add_recipe_button.bind(
             on_press=self.toggle_add_recipe_menu,
-            pos=self.update_add_recipe_position,
-            size=self.update_add_recipe_position)
+        )
         self.layout.add_widget(self.add_recipe_button)
 
         # Keep the settings button
@@ -1495,6 +1493,8 @@ class MainApp(Screen):
         self.Settings.bind(
             on_press=self.open_settings)
         self.layout.add_widget(self.Settings)
+
+        self.update_add_recipe_position()
 
     def update_bg_rect(self, instance, value):
         instance.bg_rect.pos = instance.pos
@@ -1522,15 +1522,18 @@ class MainApp(Screen):
         self.add_recipe_cuisine_layout.height = Window.height - btn_top
 
     def toggle_add_recipe_menu(self, instance):
-        if self.add_recipe_cuisine_layout.opacity == 0:
-            self.update_add_recipe_position()
-            self.add_recipe_cuisine_layout.opacity = 1
-            self.middle_cuisine_layout.opacity = 0  # Hide middle buttons
-            self.cuisine_label.opacity = 0  # Hide the label
+        if not "l1" in self.layout.ids:
+            self.layout.add_widget(self.add_recipe_cuisine_layout, index=0)
+            self.layout.ids["l1"] = self.add_recipe_cuisine_layout
+            self.layout.remove_widget(self.layout.ids["l2"])
+            del self.layout.ids["l2"]
+            self.cuisine_label.opacity = 0
         else:
-            self.add_recipe_cuisine_layout.opacity = 0
-            self.middle_cuisine_layout.opacity = 1  # Show middle buttons
-            self.cuisine_label.opacity = 1  # Show the label
+            self.layout.remove_widget(self.layout.ids["l1"])
+            del self.layout.ids["l1"]
+            self.layout.add_widget(self.middle_cuisine_layout)
+            self.layout.ids["l2"] = self.middle_cuisine_layout
+            self.cuisine_label.opacity = 1
 
     def on_cuisine_selected(self, instance, *args):
         # Only handle clicks from middle buttons
@@ -1543,7 +1546,7 @@ class MainApp(Screen):
         cuisine_screen.update_cuisine_name(instance.cuisine_name)
         self.manager.current = 'cuisine_recipes'
 
-    def on_add_recipe_selected(self, instance):
+    def on_add_recipe_selected(self, instance, *args):
         # Only handle clicks from add recipe buttons
         if not hasattr(instance, 'button_type') or instance.button_type != 'add':
             return
@@ -1557,12 +1560,12 @@ class MainApp(Screen):
     def open_settings(self, *args):
         self.manager.current = 'Settings'
 
-    def on_pre_enter(self, *args):
-        # Make sure middle buttons and their label are visible
-        # and the add recipe menu is hidden when returning to main screen.
-        self.middle_cuisine_layout.opacity = 1
-        self.add_recipe_cuisine_layout.opacity = 0
-        self.cuisine_label.opacity = 1 # Ensure the label is also visible
+    # def on_pre_enter(self, *args):
+    #     # Make sure middle buttons and their label are visible
+    #     # and the add recipe menu is hidden when returning to main screen.
+    #     self.middle_cuisine_layout.opacity = 1
+    #     self.add_recipe_cuisine_layout.opacity = 0
+    #     self.cuisine_label.opacity = 1 # Ensure the label is also visible
 
 
 # ----------------------------------------------------------------------------------------------------------------------
