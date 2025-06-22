@@ -7,10 +7,10 @@ prebuild_python_packages = urllib3==1.26.15
 title = Foodi Woodi
 
 # (str) Package name
-package.name = arjunits
+package.name = foodiwoodi
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = com.arjune
+package.domain = com.arjunits
 
 # (str) Source code where the main.py live
 source.dir = .
